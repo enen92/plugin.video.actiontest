@@ -16,9 +16,9 @@ jobs:
     - name: Extract target official repo branch
       id: extract_branch_pr
       shell: bash
-      run: |
-      echo "##[set-output name=branch;]$(git --no-pager branch -a --contains 1.0.0+krypton.10 | grep 'remotes/origin/' | cut -d '/' -f3)"
-      echo "##[set-output name=addon_id;]$(echo $GITHUB_REF | awk -F / '{print $3}')"
+      run:
+        echo "##[set-output name=branch;]$(git --no-pager branch -a --contains 1.0.0+krypton.10 | grep 'remotes/origin/' | cut -d '/' -f3)"
+        echo "##[set-output name=addon_id;]$(echo $GITHUB_REF | cut -d '/' -f2)"
 
     - name: Kodi addon checker validation
       id: kodi-addon-checker
