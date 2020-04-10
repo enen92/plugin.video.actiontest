@@ -18,14 +18,13 @@ jobs:
       shell: bash
       run: |
         echo "##[set-output name=branch;]$(git --no-pager branch -a --contains "$GITHUB_SHA" | grep 'remotes/origin/' | cut -d '/' -f3)"
-        echo "##[set-output name=addonid;]$(echo $GITHUB_REF | cut -d '/' -f2)"
 
     - name: echoer
       id: echoer
       shell: bash
       run:
         echo "${{ steps.extract_branch_pr.outputs.branch }}"
-        echo "${{ steps.extract_branch_pr.outputs.addonid }}"
+        echo "${{ github.event.repository.name }}"
 
     - name: Kodi addon checker validation
       id: kodi-addon-checker
