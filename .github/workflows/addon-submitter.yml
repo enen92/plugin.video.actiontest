@@ -10,10 +10,11 @@ jobs:
     runs-on: ubuntu-latest
     name: Kodi addon submitter
     steps:
+
     - name: Checkout
       uses: actions/checkout@v1
 
-    - name: Extract official repo target
+    - name: Extract kodi official repository target
       id: extract_branch_pr
       shell: bash
       env:
@@ -25,14 +26,6 @@ jobs:
         else
             echo "##[set-output name=repo;]repo-scripts"
         fi
-
-    - name: echoer
-      id: echoer
-      shell: bash
-      run:
-        echo "${{ steps.extract_branch_pr.outputs.branch }}"
-        echo "${{ github.event.repository.name }}"
-        echo "${{ steps.extract_branch_pr.outputs.repo }}"
 
     - name: Kodi addon checker validation
       id: kodi-addon-checker

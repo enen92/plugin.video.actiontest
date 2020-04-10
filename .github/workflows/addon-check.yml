@@ -7,12 +7,15 @@ jobs:
     runs-on: ubuntu-latest
     name: Kodi addon checker
     steps:
+
     - name: Checkout
       uses: actions/checkout@v1
-    - name: Extract branch name
+
+    - name: Extract official repo target
       shell: bash
       run: echo "##[set-output name=branch;]$(echo ${GITHUB_REF#refs/heads/})"
       id: extract_branch
+
     - name: Kodi addon checker validation
       id: kodi-addon-checker
       uses: xbmc/action-kodi-addon-checker@v1.0
