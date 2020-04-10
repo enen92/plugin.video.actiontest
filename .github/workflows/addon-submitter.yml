@@ -13,7 +13,7 @@ jobs:
     - name: Checkout
       uses: actions/checkout@v1
 
-    - name: Extract target official repo branch
+    - name: Extract official repo target
       id: extract_branch_pr
       shell: bash
       env:
@@ -21,7 +21,9 @@ jobs:
       run: |
         echo "##[set-output name=branch;]$(git --no-pager branch -a --contains "$GITHUB_SHA" | grep 'remotes/origin/' | cut -d '/' -f3)"
         if [[ $ADDON_ID == plugin* ]]; then
-            echo "##[set-output name=repo;]$repo-plugins"
+            echo "##[set-output name=repo;]repo-plugins"
+        else
+            echo "##[set-output name=repo;]repo-scripts"
         fi
 
     - name: echoer
