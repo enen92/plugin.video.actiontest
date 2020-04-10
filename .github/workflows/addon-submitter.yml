@@ -17,8 +17,8 @@ jobs:
       id: extract_branch_pr
       shell: bash
       run:
-        echo "##[set-output name=branch;]$(git --no-pager branch -a --contains 1.0.0+krypton.10 | grep 'remotes/origin/' | cut -d '/' -f3)"
-        echo "##[set-output name=addonid;]$(echo $GITHUB_REF | cut -d '/' -f2)"
+        echo "##[set-output name=branch;]$(git --no-pager branch -a --contains "$GITHUB_SHA" | grep 'remotes/origin/' | cut -d '/' -f3)"
+        #echo "##[set-output name=addonid;]$(echo $GITHUB_REF | cut -d '/' -f2)"
 
     - name: echoer
       id: echoer
