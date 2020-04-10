@@ -32,3 +32,15 @@ jobs:
       uses: xbmc/action-kodi-addon-checker@v1.0
       with:
         kodi-version: ${{ steps.extract_branch_pr.outputs.branch }}
+
+    - name: Generate distribution zip and submit to official kodi repository
+      id: kodi-addon-submitter
+      uses: xbmc/action-kodi-addon-submitter@v1.1
+      with: # Replace all the below values
+        kodi-repository: ${{ steps.extract_branch_pr.outputs.repo }}
+        kodi-version: ${{ steps.extract_branch_pr.outputs.branch }}
+        addon-id: ${{ github.event.repository.name }}
+      env: # Make sure you create the below secrets (GH_TOKEN and EMAIL)
+        GH_USERNAME: ${{ github.actor }}
+        GH_TOKEN: ${{secrets.GH_TOKEN}}
+        EMAIL: ${{secrets.EMAIL}}
