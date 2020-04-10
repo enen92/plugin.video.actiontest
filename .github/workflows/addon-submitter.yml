@@ -16,7 +16,7 @@ jobs:
     - name: Extract target official repo branch
       id: extract_branch
       shell: bash
-      run: echo "##[set-output name=branch;]$(git --no-pager branch -a --contains 1.0.0+krypton.10 | grep 'remotes/origin/' | sed 's/remotes\/origin\///g')"
+      run: echo "##[set-output name=branch;]$(git --no-pager branch -a --contains 1.0.0+krypton.10 | grep 'remotes/origin/' | sed 's/remotes\/origin\///g' | sed 's/ *$//g'`)"
 
     - name: echo branch target
       id: branch_target
