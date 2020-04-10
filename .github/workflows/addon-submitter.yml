@@ -12,10 +12,10 @@ jobs:
     steps:
     - name: Checkout
       uses: actions/checkout@v1
-    - name: Extract branch name
+    - name: Extract target official repo branch
       shell: bash
-      run: echo "##[set-output name=branch;]$(echo ${GITHUB_REF#refs/heads/})"
+      run: echo "##[set-output name=branch;]$(echo `git --no-pager branch -a --contains ${GITHUB_REF#refs/tags/}`)
       id: extract_branch
-    - name: Echo branch name
+    - name: Echo branch containing the version tag
       shell: bash
       run: echo ${{ steps.extract_branch.outputs.branch }}
