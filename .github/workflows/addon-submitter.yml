@@ -20,14 +20,7 @@ jobs:
       env:
         ADDON_ID: ${{ github.event.repository.name }}
         GITHUB_CONTEXT: ${{ toJson(github) }}
-      run: |
-      echo "$GITHUB_CONTEXT"
-      echo "##[set-output name=branch;]$(git --no-pager branch -a --contains "$GITHUB_SHA" | grep 'remotes/origin/' | cut -d '/' -f3)"
-        if [[ $ADDON_ID == plugin* ]]; then
-            echo "##[set-output name=repo;]repo-plugins"
-        else
-            echo "##[set-output name=repo;]repo-scripts"
-        fi
+      run: echo "$GITHUB_CONTEXT"
 
     - name: Kodi addon checker validation
       id: kodi-addon-checker
