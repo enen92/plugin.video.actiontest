@@ -16,8 +16,13 @@ jobs:
     - name: Extract target official repo branch
       id: extract_branch_pr
       shell: bash
+      env:
+        ADDON_ID: ${{ github.event.repository.name }}
       run: |
         echo "##[set-output name=branch;]$(git --no-pager branch -a --contains "$GITHUB_SHA" | grep 'remotes/origin/' | cut -d '/' -f3)"
+        if [ "$ADDON_ID" == plugin* ]; then
+            echo "##[set-output name=repo;]$repo-plugins
+        fi
 
     - name: echoer
       id: echoer
@@ -25,6 +30,7 @@ jobs:
       run:
         echo "${{ steps.extract_branch_pr.outputs.branch }}"
         echo "${{ github.event.repository.name }}"
+        echo "${{ steps.extract_branch_pr.outputs.repo }}"
 
     - name: Kodi addon checker validation
       id: kodi-addon-checker
