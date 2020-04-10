@@ -1,0 +1,21 @@
+name: Kodi Addon-Submitter
+
+on:
+  create:
+    tags:
+      - v*
+
+jobs:
+  kodi-addon-submitter:
+    runs-on: ubuntu-latest
+    name: Kodi addon submitter
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v1
+    - name: Extract branch name
+      shell: bash
+      run: echo "##[set-output name=branch;]$(echo ${GITHUB_REF#refs/heads/})"
+      id: extract_branch
+    - name: Echo branch name
+      shell: bash
+      run: echo ${{ steps.extract_branch.outputs.branch }}
