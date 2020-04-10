@@ -1,15 +1,9 @@
 name: Kodi Addon-Check
 
-on:
-    push:
-        branches:
-            - krypton
-    pull_request:
-        branches:
-            - krypton
+on: [push, pull_request]
 
 jobs:
-  kodi-addon-checker:
+  kodi-addon-checker-krypton:
     runs-on: ubuntu-latest
     name: Kodi addon checker
     steps:
