@@ -18,7 +18,7 @@ jobs:
       #run: echo "##[set-output name=branch;]$(git --no-pager branch -a --contains 1.0.0+krypton.10 | grep '*' | cut -d' ' -f2)"
       id: extract_branch
       run: |
-        git --no-pager branch -a --contains 1.0.0+krypton.10 | grep 'remotes/origin/' | sed 's/\/remotes\/origin\///g'
+        git --no-pager branch -a --contains 1.0.0+krypton.10 | grep 'remotes/origin/' | sed 's/remotes\/origin\///g'
     #- name: Echo branch containing the version tag
     #  shell: bash
     #  run: echo ${{ steps.extract_branch.outputs.branch }}
