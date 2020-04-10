@@ -15,7 +15,7 @@ jobs:
     - name: Extract target official repo branch
       shell: bash
       #run: echo "##[set-output name=branch;]$(echo $(git --no-pager branch -a --contains 1.0.0+krypton.10))"
-      run: echo "##[set-output name=branch;]$(which echo)"
+      run: echo "##[set-output name=branch;]$(which git)"
       id: extract_branch
     - name: Echo branch containing the version tag
       shell: bash
