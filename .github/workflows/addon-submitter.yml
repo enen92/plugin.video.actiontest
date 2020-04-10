@@ -13,12 +13,12 @@ jobs:
     - name: Checkout
       uses: actions/checkout@v1
 
-      - name: Extract target official repo branch
+    - name: Extract target official repo branch
       id: extract_branch
       shell: bash
       run: echo "##[set-output name=branch;]$(git --no-pager branch -a --contains 1.0.0+krypton.10 | grep 'remotes/origin/' | sed 's/remotes\/origin\///g')"
 
-      - name: Kodi addon checker validation
+    - name: Kodi addon checker validation
       id: kodi-addon-checker
       uses: xbmc/action-kodi-addon-checker@v1.0
       with:
