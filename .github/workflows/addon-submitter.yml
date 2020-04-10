@@ -14,17 +14,17 @@ jobs:
       uses: actions/checkout@v1
 
     - name: Extract target official repo branch
-      id: extract_branch
+      id: extract_branch_pr
       shell: bash
       run: echo "##[set-output name=branch;]$(git --no-pager branch -a --contains 1.0.0+krypton.10 | grep 'remotes/origin/' | sed 's/remotes\/origin\///g' | sed 's/ *$//g' | sed 's/\n//g')"
 
     - name: echo branch target
-      id: branch_target
+      id: extract_branch_pr
       shell: bash
-      run: echo ${{ steps.extract_branch.outputs.branch }}
+      run: echo ${{ steps.extract_branch_pr.outputs.branch }}
 
     - name: Kodi addon checker validation
       id: kodi-addon-checker
       uses: xbmc/action-kodi-addon-checker@v1.0
       with:
-        kodi-version: ${{ steps.extract_branch.outputs.branch }}
+        kodi-version: ${{ steps.extract_branch_pr.outputs.branch }}
