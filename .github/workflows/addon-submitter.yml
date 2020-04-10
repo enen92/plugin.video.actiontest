@@ -8,7 +8,7 @@ on:
 jobs:
   kodi-addon-submitter:
     runs-on: ubuntu-latest
-    name: Kodi addon submitter
+    name: Kodi Addon Submitter
     steps:
 
     - name: Checkout
@@ -19,8 +19,10 @@ jobs:
       shell: bash
       env:
         ADDON_ID: ${{ github.event.repository.name }}
+        GITHUB_CONTEXT: ${{ toJson(github) }}
       run: |
-        echo "##[set-output name=branch;]$(git --no-pager branch -a --contains "$GITHUB_SHA" | grep 'remotes/origin/' | cut -d '/' -f3)"
+      echo "$GITHUB_CONTEXT"
+      echo "##[set-output name=branch;]$(git --no-pager branch -a --contains "$GITHUB_SHA" | grep 'remotes/origin/' | cut -d '/' -f3)"
         if [[ $ADDON_ID == plugin* ]]; then
             echo "##[set-output name=repo;]repo-plugins"
         else
@@ -44,3 +46,25 @@ jobs:
         GH_USERNAME: ${{ github.actor }}
         GH_TOKEN: ${{secrets.GH_TOKEN}}
         EMAIL: ${{secrets.EMAIL}}
+
+    - name: Create Github Release
+      id: create_release
+      uses: actions/create-release@v1.0.0
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        tag_name: ${{ github.ref }}
+        release_name: Release ${{ github.ref }}
+        draft: false
+        prerelease: false
+
+    - name: Upload Addon zip to github release
+      id: upload-release-asset
+      uses: actions/upload-release-asset@v1.0.1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        upload_url: ${{ steps.create_release.outputs.upload_url }}
+        asset_path: ${{ steps.kodi-addon-submitter.outputs.addon-zip }}
+        asset_name: ${{ steps.kodi-addon-submitter.outputs.addon-zip }}
+        asset_content_type: application/zip
