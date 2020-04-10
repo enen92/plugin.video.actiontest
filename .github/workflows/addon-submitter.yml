@@ -17,7 +17,7 @@ jobs:
       id: extract_branch_pr
       shell: bash
       #run: echo "##[set-output name=branch;]$(git --no-pager branch -a --contains 1.0.0+krypton.10 | grep 'remotes/origin/' | sed 's/remotes\/origin\///g' | sed 's/ *$//g' | sed 's/\n//g')"
-      run: echo "##[set-output name=branch;]$(echo ${GITHUB_REF#refs/heads/})"
+      run: echo "##[set-output name=branch;]$(git --no-pager branch -a --contains 1.0.0+krypton.10 | grep 'remotes/origin/' | cut -d '/' -f3)"
 
     - name: echo branch target
       id: echo_branch_pr
