@@ -1,12 +1,6 @@
 name: Kodi Addon-Check
 
-on:
-    push:
-        branches:
-            - matrix
-    pull_request:
-        branches:
-            - matrix
+on: [push, pull_request]
 
 jobs:
   kodi-addon-checker:
